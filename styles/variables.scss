@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Inter bold';
+  src: url(/assets/fonts/Inter-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Inter black';
+  src: url(/assets/fonts/Inter-Black.ttf);
+}
+
+@font-face {
+  font-family: 'Splash';
+  src: url(../assets/fonts/splash.ttf);
+}
+
+$primary-color: black;
+$bg-color: #fff;
+$text: #000;
+$black: black;
+$hover-text: #ffc864;
+$font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+$font-super-brand: 'Inter black', sans-serif;
+$font-brand: 'Inter bold', sans-serif;
+$font-mono: ui-monospace, SFMono-Regular, SF Mono, Consolas, Liberation Mono, Menlo, monospace;
+$font-logo: 'Splash', sans-serif;
+$font-code: 'San Francisco Mono', 'Monaco', 'Consolas', 'Lucida Console', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+$font-xxsmall: 0.75rem;
+$font-xsmall: 0.875rem;
+$font-small: 1rem;
+$font-medium: 1.25rem;
+$font-large: 1.5rem;
+$font-xlarge: 1.875rem;
+$font-xxlarge: 2.625rem;
+$wrapper-width: 90rem;
+$muted: #a0aec0;
+$focus: #8b5cf6;
+$border: #dfdfe0;
+$border-muted: #212633;
+$muted: #a0aec0;
+$text-heading: #f7f9fc;
+$text-disabled: #627693;
+$btn-bg: #fff;
+$code-bg: #1f2631;

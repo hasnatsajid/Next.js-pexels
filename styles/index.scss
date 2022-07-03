@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-body;
+}
+
+html,
+body {
+  background-color: $bg-color;
+  color: $primary-color;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.button {
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: $primary-color;
+  color: $bg-color;
+  width: max-content;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease all;
+
+  &:hover {
+    background: rgba($color: $primary-color, $alpha: 0.7);
+  }
+}
