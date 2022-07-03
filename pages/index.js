@@ -1,8 +1,17 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import axios from 'axios';
 
-export default function Home() {
+export default function Home({ data }) {
+  console.log(data.photos);
+
+  const photos = data.photos.map((photo) => (
+    <div className="photo" key={photo.id}>
+      <img src={photo.src.large} alt="" />
+    </div>
+  ));
+
   return (
     <div>
       <Head>
@@ -13,9 +22,31 @@ export default function Home() {
 
       <main>
         <Header />
+        <Hero />
+        <div className="gallery">{photos}</div>
+        <div className="gallery">{photos}</div>
       </main>
 
       <footer></footer>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const apiKey = '563492ad6f91700001000001a6302b3004b54911be85dfca7876986b';
+
+  const url = `https://api.pexels.com/v1/curated/?query=tigers&page=1&per_page=20`;
+  const res = await axios.get(url, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: apiKey,
+    },
+  });
+
+  // console.log(res.data);
+  // const json = await res.json();
+
+  return {
+    props: { data: res.data },
+  };
 }

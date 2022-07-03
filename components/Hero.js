@@ -1,13 +1,10 @@
-import Search from './Search';
+import Searcher from './Searcher';
 
-const Hero = (props) => {
+const Hero = () => {
   return (
-    <div id="hero">
-      <div className="hero-content">
-        <h1>The best free stock photos, Royalty free images shared by creators.</h1>
-        <Search search={props.search} setInput={props.setInput} />
-        <div className="suggested-searches">Suggested: model sad dark young man work man face more</div>
-      </div>
+    <div className="hero">
+      <h1 className="hero_heading">The best free stock photos and videos shared by creators</h1>
+      <Searcher />
     </div>
   );
 };
