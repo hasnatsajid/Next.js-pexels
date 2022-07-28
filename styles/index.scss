@@ -16,13 +16,23 @@ a {
   color: inherit;
 }
 
+.loadmore {
+  text-align: center;
+  margin: 2rem 0;
+
+  button {
+    font-size: 1.2rem;
+  }
+}
+
 .button {
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.5rem 1rem;
   background-color: $primary-color;
   color: $bg-color;
   width: max-content;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
   transition: 0.2s ease all;
 
@@ -45,6 +55,11 @@ a {
   flex: 25%;
   max-width: 25%;
   padding: 0 4px;
+
+  @media (max-width: 768px) {
+    max-width: 50%;
+    flex: 50%;
+  }
 }
 
 .column img {

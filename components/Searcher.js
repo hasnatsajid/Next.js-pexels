@@ -1,7 +1,9 @@
 const Searcher = () => {
-  const submitHandler = () => {};
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
 
-  const search = () => {};
+  const search = (e) => {};
 
   return (
     <div className="search">

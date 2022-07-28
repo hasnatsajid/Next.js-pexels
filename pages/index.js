@@ -6,14 +6,13 @@ import { useState, useEffect } from 'react';
 
 const apiKey = '563492ad6f91700001000001a6302b3004b54911be85dfca7876986b';
 
-const url = `https://api.pexels.com/v1/search?query=tigers&page=1&per_page=20`;
-
 export default function Home({ data }) {
+  const [page, setPage] = useState(2);
   const [first, setFirst] = useState([]);
   const [second, setSecond] = useState([]);
   const [third, setThird] = useState([]);
   const [fourth, setFourth] = useState([]);
-  console.log(data.photos.length);
+  const url = `https://api.pexels.com/v1/search?query=tigers&page=${page}&per_page=20`;
 
   const photos = data.photos.map((photo) => (
     <div className="photo" key={photo.id}>
@@ -40,6 +39,9 @@ export default function Home({ data }) {
   const photos2 = [...photos].reverse();
 
   const loadMore = async () => {
+    setPage((prevPage) => {
+      return prevPage + 1;
+    });
     const res = await axios.get(url, {
       headers: {
         Accept: 'application/json',
@@ -49,13 +51,33 @@ export default function Home({ data }) {
 
     const data = await res.data;
 
-    console.log(data);
+    const photoList = data.photos.map((photo) => (
+      <div className="photo" key={photo.id}>
+        <img src={photo.src.large} alt="" />
+      </div>
+    ));
+
+    const portion = Math.ceil(photoList.length / 4);
+    setFirst((prevFirst) => {
+      return [...prevFirst, ...photoList.slice(0, portion)];
+    });
+    setSecond((prevSecond) => {
+      return [...prevSecond, ...photoList.slice(portion, portion * 2)];
+    });
+    setThird((prevThird) => {
+      return [...prevThird, ...photoList.slice(portion * 2, portion * 3)];
+    });
+    setFourth((prevFourth) => {
+      return [...prevFourth, ...photoList.slice(portion * 3)];
+    });
+    // setFirst(photoList.slice(0, portion));
+    // setSecond(photoList.slice(portion, portion * 2));
+    // setThird(photoList.slice(portion * 2, portion * 3));
+    // setFourth(photoList.slice(portion * 3));
     // setFirst((prev) => {
-    //   return [...prev, ...prev];
+    //   return [...prev, ...photoList];
     // });
   };
-
-  console.log(first);
 
   return (
     <div>
@@ -77,9 +99,11 @@ export default function Home({ data }) {
         {/* <div className="gallery">{photos}</div> */}
       </main>
 
-      <button className="loadmore" onClick={loadMore}>
-        Load More
-      </button>
+      <div className="loadmore">
+        <button className="button" onClick={loadMore}>
+          Load More
+        </button>
+      </div>
 
       <footer></footer>
     </div>
@@ -87,6 +111,7 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
+  const url = `https://api.pexels.com/v1/search?query=tigers&page=1&per_page=20`;
   const res = await axios.get(url, {
     headers: {
       Accept: 'application/json',

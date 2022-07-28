@@ -19,6 +19,10 @@
     &:focus {
       outline: none;
     }
+
+    @media (max-width: 400px) {
+      height: 40px;
+    }
   }
 
   &_btn {
@@ -28,5 +32,9 @@
     border: none;
     padding: 16px;
     cursor: pointer;
+  }
+
+  @media (max-width: 400px) {
+    margin: 10% 0;
   }
 }
