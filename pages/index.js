@@ -2,15 +2,60 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+const apiKey = '563492ad6f91700001000001a6302b3004b54911be85dfca7876986b';
+
+const url = `https://api.pexels.com/v1/search?query=tigers&page=1&per_page=20`;
 
 export default function Home({ data }) {
-  console.log(data.photos);
+  const [first, setFirst] = useState([]);
+  const [second, setSecond] = useState([]);
+  const [third, setThird] = useState([]);
+  const [fourth, setFourth] = useState([]);
+  console.log(data.photos.length);
 
   const photos = data.photos.map((photo) => (
     <div className="photo" key={photo.id}>
       <img src={photo.src.large} alt="" />
     </div>
   ));
+
+  useEffect(() => {
+    const photos3 = [...photos];
+    const portion = Math.ceil(photos3.length / 4);
+    setFirst(photos3.slice(0, portion));
+    setSecond(photos3.slice(portion, portion * 2));
+    setThird(photos3.slice(portion * 2, portion * 3));
+    setFourth(photos3.slice(portion * 3));
+  }, []);
+
+  // const portion = Math.ceil(photos3.length / 4);
+  // const first = photos3.slice(0, portion);
+  // const second = photos3.slice(portion, portion * 2);
+  // const third = photos3.slice(portion * 2, portion * 3);
+  // const fourth = photos3.slice(portion * 3);
+  // console.log(first.length, second.length, third.length, fourth.length);
+
+  const photos2 = [...photos].reverse();
+
+  const loadMore = async () => {
+    const res = await axios.get(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: apiKey,
+      },
+    });
+
+    const data = await res.data;
+
+    console.log(data);
+    // setFirst((prev) => {
+    //   return [...prev, ...prev];
+    // });
+  };
+
+  console.log(first);
 
   return (
     <div>
@@ -23,9 +68,18 @@ export default function Home({ data }) {
       <main>
         <Header />
         <Hero />
-        <div className="gallery">{photos}</div>
-        <div className="gallery">{photos}</div>
+        <div className="row">
+          <div className="column">{first}</div>
+          <div className="column">{second}</div>
+          <div className="column">{third}</div>
+          <div className="column">{fourth}</div>
+        </div>
+        {/* <div className="gallery">{photos}</div> */}
       </main>
+
+      <button className="loadmore" onClick={loadMore}>
+        Load More
+      </button>
 
       <footer></footer>
     </div>
@@ -33,9 +87,6 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
-  const apiKey = '563492ad6f91700001000001a6302b3004b54911be85dfca7876986b';
-
-  const url = `https://api.pexels.com/v1/curated/?query=tigers&page=1&per_page=20`;
   const res = await axios.get(url, {
     headers: {
       Accept: 'application/json',
